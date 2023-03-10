@@ -10,6 +10,8 @@ This document is a manual for installing and configuring the INtime OS with Dens
   - [Uninstall Windows Defender](#uninstall-windows-defender)
   - [Set IP Address(Server version only)](#set-ip-addressserver-version-only)
   - [Config INtime](#config-intime)
+  - [Install EtherCat Master/Studio](#install-ethercat-masterstudio)
+  - [Config the EhterCat connection](#config-the-ehtercat-connection)
   - [Config the controller](#config-the-controller)
 - [Config the INtime license server](#config-the-intime-license-server)
   - [Install INtime](#install-intime)
@@ -35,7 +37,7 @@ Settings
 
 ## Set PC's power option
 Control Panel
-- Programs -> Turn Windows features on or off -> .NET Framework 4.8 Advanced Services -> `[Enable all]`
+- Programs -> Turn Windows features on or off -> .NET Framework `4.8 and 3.5` Advanced Services -> `[Enable all]`
 - System and Security
     - Administrative Tools -> Services -> Windows update(`double click`) -> `[Disable]` 
 	- Windows update(`right click`) -> Properties -> Recovery
@@ -54,7 +56,7 @@ Browser
 - VS 2019 Community -> Download -> Run as administrator -> Select 'Desktop development with C++' and '.NET desktop development' -> Install(need to wait for a long time)
 
 Load Installation Disk
-- rightclick the DVD -> Open -> intime64full-net_installer -> open(need to wait for a long time)
+- `Right click` the DVD -> Open -> intime64full-net_installer -> open(need to wait for a long time)
 <br><br>
 
 ## Uninstall Windows Defender
@@ -104,6 +106,29 @@ Bottomright manu of Windows -> All INtime Kenels are stopped(`right click`)
 - `Start All` -> Icon turn red(wait) -> `Stop All`
 <br><br>
 
+## Install EtherCat Master/Studio
+Load the EtherCat Master disk -> `right click` the DVD -> Open
+- RSIECATDC_Setup(`double click`) and `install`
+- INpassSetup(`double click`) and `install`
+
+
+`[WARNING]` For the following part, the installation order depends on the version of Windows. Please make sure the installation order is correct. Otherwise, you may need to uninstall everything in this part and reinstall them from the beginning. Here is the installation order for `Win 10`.
+
+Load the EtherCat Studio disk -> `right click` the DVD -> Open
+- WinPcap(`double click`) and `install`
+- KPALicensing...(`double click`) and `install`
+- KPAEtherCATStudio..._Setup_86(`double click`) and `install`
+- MRT_WIN32_TRAIL...(`double click`) and `install`
+
+If failure occurs, check the Readme.txt(Use DeepL to translate)
+<br><br>
+
+## Config the EhterCat connection
+Connect PC and Controller with LAN cable. For the controller, use the upper-left LAN port(EtherCat in), and then turn on the controller.
+
+Connect the EtherCat Studio license key to PC
+- `Double click` the installed Studio -> Browse -> Select the USB Key file
+
 ## Config the controller
 
 <br><br>
@@ -115,8 +140,8 @@ Change the Setting of this PC and make sure it will not sleep to keep the connec
 
 ## Install INtime
 Load Installation Disk
-- `double click` the DVD -> Start without ... -> Start without ... -> Confirm
-- `right click` the DVD -> Open
+- `Double click` the DVD -> Start without ... -> Start without ... -> Confirm
+- `Right click` the DVD -> Open
     - NetUtil -> Server -> setup(doubleclick) -> keep default option and install
 	- copy files 'WlmAdmin, Isapiw32.dll, Isusage' to 'C:/Users/INtimeServer(PC_NAME)'
 
