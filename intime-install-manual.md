@@ -12,7 +12,10 @@ This document is a manual for installing and configuring the INtime OS with Dens
   - [Config INtime](#config-intime)
   - [Install EtherCat Master/Studio](#install-ethercat-masterstudio)
   - [Config the EhterCat connection](#config-the-ehtercat-connection)
-  - [Config the controller](#config-the-controller)
+  - [Start EtherCat Studio](#start-ethercat-studio)
+  - [Start INpass(Bridge between Windows and INtime ports)](#start-inpassbridge-between-windows-and-intime-ports)
+  - [Config the teaching panel](#config-the-teaching-panel)
+  - [Test](#test)
 - [Config the INtime license server](#config-the-intime-license-server)
   - [Install INtime](#install-intime)
   - [Set IP Address](#set-ip-address)
@@ -99,7 +102,8 @@ Bottomright manu of Windows -> All INtime Kenels are stopped(`right click`)
             - Add area -> `4095`(`[Force high]`)
             - Repeat: Add area -> `4095`(`[Force high]`)
         - NodeB -> Same as NodeA
-        - TrajectoryNodeA/B -> `132 [legacy]` and `4095 [Force high]`
+        - 
+        - TrajectoryNodeA/B/ForcesensorNode -> `132 [legacy]` and `4095 [Force high]`
         - All nodes -> Kenel Clock Rate -> `250`
     - Development Tools -> Check VS 2019 installed
 	- Exit and reboot
@@ -128,8 +132,42 @@ Connect PC and Controller with LAN cable. For the controller, use the upper-left
 
 Connect the EtherCat Studio license key to PC
 - `Double click` the installed Studio -> Browse -> Select the USB Key file
+<br><br>
 
-## Config the controller
+## Start EtherCat Studio
+Slaves Library(`Right click`)
+- Open slaves library folder -> (TODO: 这一步把文件提前放公共U盘）Copy 'RC8 ECS MOTION V1.2.XML' from the already configed PC to this folder
+- Reload -> The DENSO WAVE INCORPORATED
+Start Controllor
+- File -> New Project -> Network card -> Select the port collect to the robot controllor(check in the network setting) -> Proces Image -> Create PI by tree view -> Attach Master(row manu icon) -> You can find Slave 1(RC8...) if nothing wrong -> OK
+- State -> Click Init/Pre-Operational/Safe-Opeational/Operational one by one and check the Current/Requested states are same -> Detach Master(row manu icon) -> Export Master Configuation KPA(row manu icon) -> Save as 'RtEcHdr.xml' on desktop -> Move the file to 'C:Program Files(x86)/Micronet/RSIECAT/bin/NodeA/'
+- Close EtherCat Studio
+<br><br>
+
+## Start INpass(Bridge between Windows and INtime ports)
+- Next -> Next -> Choose the port which connected to the robot(check in the network setting) -> Next -> 'Pass to INtime with MSI', select the current node -> Next -> EtherCAT ->Next ->Next-> OK(Reboot automatically)
+- INtime configuration -> Node Management -> NodeA -> Auto Load -> Add ->Title:'RSI-ECAT-Master', Path:'C:Program Files(x86)/Micronet/RSIECAT/bin/RtEcHdr.xml'(Not the same one with the one we save), Click all the optional boxes -> OK -> Save -> Close the Node Management
+- Copy 'EhterCAT_API-Library' folder from the already configed PC to 'C://'
+<br><br>
+
+## Config the teaching panel
+- Turn off the controllor -> Connect the teaching panel -> Turn on the controllor -> Don't need 'Easy settings'
+- Setting(F6)
+	- Login（F1) -> Maintainer -> Password: `5596060`
+	- System info(F2) -> VRC Steeing(F6)
+		- No.370: Slave motion setting: `[Enable]`
+		- No.373: Communication cycle of Slave Motion: `[250us]`
+		- No.378: Slave Motion control mode: `[Velocity control]`
+		- No.385: Slave Motion control mode 2: `[pulse]`
+- Arm(F2)
+  	- SHIFT -> Maintenance(F6) -> CALSET(F7) -> Input number -> Copy numbers in CALSET collum to the 'Global.h' `CALSET_1[AXIS_NUM]`
+- Turn off the controllor -> Disconnect the teaching panel and connect the plug
+<br><br>
+
+## Test
+Start the program .NET -> Test the robot motion.
+
+If every thing is okay, congratulations!
 
 <br><br>
 
