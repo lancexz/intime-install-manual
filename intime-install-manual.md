@@ -11,10 +11,10 @@ This document is a manual for installing and configuring the INtime OS with Dens
   - [Set IP Address(Server version only)](#set-ip-addressserver-version-only)
   - [Config INtime](#config-intime)
   - [Install EtherCat Master/Studio](#install-ethercat-masterstudio)
+  - [Config the teaching panel(The second robot of the dual-arm system configuration start from here)](#config-the-teaching-panelthe-second-robot-of-the-dual-arm-system-configuration-start-from-here)
   - [Config the EhterCat connection](#config-the-ehtercat-connection)
   - [Start EtherCat Studio](#start-ethercat-studio)
   - [Start INpass(Bridge between Windows and INtime ports)](#start-inpassbridge-between-windows-and-intime-ports)
-  - [Config the teaching panel](#config-the-teaching-panel)
   - [Test](#test)
 - [Config the INtime license server](#config-the-intime-license-server)
   - [Install INtime](#install-intime)
@@ -143,6 +143,15 @@ If failure occurs, check the Readme.txt(Use DeepL to translate)
         	- open the saved_project_folder/project_name_folder/Source File/
             	- Copy 'ChangeAccessLevel.pcs' to the folder(TODO: 这一步把文件提前放公共U盘）
           	- WinCap III -> file -> open project -> open the saved project file -> communication -> data something(the first one, Ctrl+T) -> leftside, program, click the 'ChangeAccessLevel.pcs', send(the teaching panel should under init interface, the main page, all blue interface)
+          	- Check No.370, 373, 378, 385 are all visible in the settings(If any of them are invisible)
+            	- Try to excute the manipulator with the teaching panel
+            	- Init page(All blue)
+                	- F1 -> Check the 'ChangeAccessLevel.pcs' is loaded
+                	- F6 -> F5 -> F1 -> touch TP(Keep the key mode in `[MAN]`) -> OK, OK -> rotate the key to `[AUTO]`
+                	- F1 -> F4 -> select the first choice, OK(the numbers will change)
+                	- F6 -> F5 -> F1 -> rotate the key to `[MAN]` -> touch I/O, OK, OK
+                	- F6 -> Login（F1) -> Maintainer -> Password: `5596060`
+              	- Check No.370, 373, 378, 385 are all available in the settings
 		- No.370: Slave motion setting: `[Enable]`
 		- No.373: Communication cycle of Slave Motion: `[250us]`
 		- No.378: Slave Motion control mode: `[Velocity control]`
@@ -172,7 +181,7 @@ Start Controllor
 ## Start INpass(Bridge between Windows and INtime ports)
 - Next -> Next -> Choose the port which connected to the robot(check in the network setting) -> Next -> 'Pass to INtime with MSI', select the current node -> Next -> EtherCAT ->Next ->Next-> OK(Reboot automatically)
 - INtime configuration -> Node Management -> NodeA -> Auto Load -> Add ->Title:'RSI-ECAT-Master', Path:'C:Program Files(x86)/Micronet/RSIECAT/bin/RtEcHdr.xml'(Not the same one with the one we save), Click all the optional boxes -> OK -> Save -> Close the Node Management
-- Copy 'EhterCAT_API-Library' folder from the already configed PC to 'C://'
+-  (TODO: 这一步把文件提前放公共U盘）Copy 'EhterCAT_API-Library' folder from the already configed PC to 'C://'
 <br><br>
 
 ## Test
