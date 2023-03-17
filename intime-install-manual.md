@@ -127,6 +127,31 @@ Load the EtherCat Studio disk -> `right click` the DVD -> Open
 If failure occurs, check the Readme.txt(Use DeepL to translate)
 <br><br>
 
+## Config the teaching panel(The second robot of the dual-arm system configuration start from here)
+- Connect the teaching panel -> Turn on the controllor -> Don't need 'Easy settings'
+  - If you encounter Error when power-on, please follow the steps in 'Error at RC8A robot Controller Power-on' paper sheet inside the manipulator delivery package.
+- Setting(F6)
+	- Login（F1) -> Maintainer -> Password: `5596060`
+	- System info(F2) -> VRC Steeing(F6)
+    	- If any of the following Slave motions does not exist, you need to change settings from WinCap III
+        	- Check the IP address of the penal: Setting(F6) -> Communication and ...(F5) -> Network and commu(F2) -> Remember the IP address for next step(192.168.0.1 for example)
+        	- Find the license key and load WinCap III disk(Please make sure the language of this software is tha same as the language in the teaching panel)
+        	- DVD(`double click`) -> install -> Input the license key
+        	- Connect PC and controllor using the individual single LAN port(below the emergency stop port, bottomleft position)
+        	- Change the IP address of the PC to the same local address with controllor(192.168.0.2), ping 192.168.0.1
+        	- Start WinCap III -> `[0-operator]` -> login -> file -> new project -> select the second one(create a new project with information from the controllor), next -> project name: any, path: any, next -> input the IP address of the controllor, finish -> file -> save -> flie -> close
+        	- open the saved_project_folder/project_name_folder/Source File/
+            	- Copy 'ChangeAccessLevel.pcs' to the folder(TODO: 这一步把文件提前放公共U盘）
+          	- WinCap III -> file -> open project -> open the saved project file -> communication -> data something(the first one, Ctrl+T) -> leftside, program, click the 'ChangeAccessLevel.pcs', send(the teaching panel should under init interface, the main page, all blue interface)
+		- No.370: Slave motion setting: `[Enable]`
+		- No.373: Communication cycle of Slave Motion: `[250us]`
+		- No.378: Slave Motion control mode: `[Velocity control]`
+		- No.385: Slave Motion control mode 2: `[pulse]`
+- Arm(F2)
+  	- SHIFT -> Maintenance(F6) -> CALSET(F7) -> Input number -> Copy numbers in CALSET collum to the 'Global.h' `CALSET_1[AXIS_NUM]`
+- Turn off the controllor -> Disconnect the teaching panel and connect the plug
+<br><br>
+
 ## Config the EhterCat connection
 Connect PC and Controller with LAN cable. For the controller, use the upper-left LAN port(EtherCat in), and then turn on the controller.
 
@@ -148,20 +173,6 @@ Start Controllor
 - Next -> Next -> Choose the port which connected to the robot(check in the network setting) -> Next -> 'Pass to INtime with MSI', select the current node -> Next -> EtherCAT ->Next ->Next-> OK(Reboot automatically)
 - INtime configuration -> Node Management -> NodeA -> Auto Load -> Add ->Title:'RSI-ECAT-Master', Path:'C:Program Files(x86)/Micronet/RSIECAT/bin/RtEcHdr.xml'(Not the same one with the one we save), Click all the optional boxes -> OK -> Save -> Close the Node Management
 - Copy 'EhterCAT_API-Library' folder from the already configed PC to 'C://'
-<br><br>
-
-## Config the teaching panel
-- Turn off the controllor -> Connect the teaching panel -> Turn on the controllor -> Don't need 'Easy settings'
-- Setting(F6)
-	- Login（F1) -> Maintainer -> Password: `5596060`
-	- System info(F2) -> VRC Steeing(F6)
-		- No.370: Slave motion setting: `[Enable]`
-		- No.373: Communication cycle of Slave Motion: `[250us]`
-		- No.378: Slave Motion control mode: `[Velocity control]`
-		- No.385: Slave Motion control mode 2: `[pulse]`
-- Arm(F2)
-  	- SHIFT -> Maintenance(F6) -> CALSET(F7) -> Input number -> Copy numbers in CALSET collum to the 'Global.h' `CALSET_1[AXIS_NUM]`
-- Turn off the controllor -> Disconnect the teaching panel and connect the plug
 <br><br>
 
 ## Test
