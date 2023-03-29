@@ -135,7 +135,7 @@ If failure occurs, check the Readme.txt(Use DeepL to translate)
 	- System info(F2) -> VRC Steeing(F6)
     	- If any of the following Slave motions does not exist, you need to change settings from WinCap III
         	- Check the IP address of the penal: Setting(F6) -> Communication and ...(F5) -> Network and commu(F2) -> Remember the IP address for next step(192.168.0.1 for example)
-        	- Find the license key and load WinCap III disk(Please make sure the language of this software is tha same as the language in the teaching panel)
+        	- Find the license key and load WinCap III disk(Please make sure the language of this software is tha same as the language in the teaching panel. When you change language of the panel, keep the controllor turning on until the display of panel shows black-white-noise with loud fan noise, then you can reboot the controllor. The panel will automatically restart three times. ).
         	- DVD(`double click`) -> install -> Input the license key
         	- Connect PC and controllor using the individual single LAN port(below the emergency stop port, bottomleft position)
         	- Change the IP address of the PC to the same local address with controllor(192.168.0.2), ping 192.168.0.1
@@ -152,19 +152,20 @@ If failure occurs, check the Readme.txt(Use DeepL to translate)
                 	- F6 -> F5 -> F1 -> rotate the key to `[MAN]` -> touch I/O, OK, OK
                 	- F6 -> Login（F1) -> Maintainer -> Password: `5596060`
               	- Check No.370, 373, 378, 385 are all available in the settings
+          	- Change the IP of PC back to automatically(dynamic IP)
 		- No.370: Slave motion setting: `[Enable]`
 		- No.373: Communication cycle of Slave Motion: `[250us]`
 		- No.378: Slave Motion control mode: `[Velocity control]`
 		- No.385: Slave Motion control mode 2: `[pulse]`
 - Arm(F2)
-  	- SHIFT -> Maintenance(F6) -> CALSET(F7) -> Input number -> Copy numbers in CALSET collum to the 'Global.h' `CALSET_1[AXIS_NUM]`
+  	- SHIFT -> Maintenance(F6) -> CALSET(F7) -> Input number -> Copy numbers in CALSET collum to the 'Global.h' `CALSET_1[AXIS_NUM]` -> save the file and rebuild the program(Compile_ALL)
 - Turn off the controllor -> Disconnect the teaching panel and connect the plug
 <br><br>
 
 ## Config the EhterCat connection
 Connect PC and Controller with LAN cable. For the controller, use the upper-left LAN port(EtherCat in), and then turn on the controller.
 
-Connect the EtherCat Studio license key to PC
+Connect the EtherCat Studio license key to PC(For the second robot, you can skip)
 - `Double click` the installed Studio -> Browse -> Select the USB Key file
 <br><br>
 
@@ -174,18 +175,18 @@ Slaves Library(`Right click`)
 - Reload -> The DENSO WAVE INCORPORATED
 Start Controllor
 - File -> New Project -> Network card -> Select the port collect to the robot controllor(check in the network setting) -> Proces Image -> Create PI by tree view -> Attach Master(row manu icon) -> You can find Slave 1(RC8...) if nothing wrong -> OK
-- State -> Click Init/Pre-Operational/Safe-Opeational/Operational one by one and check the Current/Requested states are same -> Detach Master(row manu icon) -> Export Master Configuation KPA(row manu icon) -> Save as 'RtEcHdr.xml' on desktop -> Move the file to 'C:Program Files(x86)/Micronet/RSIECAT/bin/NodeA/'
+- State -> Click Init/Pre-Operational/Safe-Opeational/Operational one by one and check the Current/Requested states are same -> Detach Master(row manu icon) -> Export Master Configuation KPA(row manu icon) -> Save as 'RtEcHdr.xml' on desktop -> Move the file to 'C:Program Files(x86)/Micronet/RSIECAT/bin/NodeA/'(You need to create 'NodeB/' manually and copy 'ecatmkpa' from 'NodeA/' to 'NodeB/')
 - Close EtherCat Studio
 <br><br>
 
 ## Start INpass(Bridge between Windows and INtime ports)
 - Next -> Next -> Choose the port which connected to the robot(check in the network setting) -> Next -> 'Pass to INtime with MSI', select the current node -> Next -> EtherCAT ->Next ->Next-> OK(Reboot automatically)
 - INtime configuration -> Node Management -> NodeA -> Auto Load -> Add ->Title:'RSI-ECAT-Master', Path:'C:Program Files(x86)/Micronet/RSIECAT/bin/RtEcHdr.xml'(Not the same one with the one we save), Click all the optional boxes -> OK -> Save -> Close the Node Management
--  (TODO: 这一步把文件提前放公共U盘）Copy 'EhterCAT_API-Library' folder from the already configed PC to 'C://'
+-  (TODO: 这一步把文件提前放公共U盘）Copy 'EtherCAT_API-Library' folder from the already configed PC to 'C://'
 <br><br>
 
 ## Test
-Start the program .NET -> Test the robot motion.
+Start the program .NET -> Test the robot motion. -> `Check the init position of robot using the simulation first!`
 
 If every thing is okay, congratulations!
 
