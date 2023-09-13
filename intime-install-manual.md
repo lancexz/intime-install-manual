@@ -33,8 +33,8 @@ Settings
 		- Hyper-Threading -> `[Disable]`
 		- Intel C-State -> `[Disable]`
 		- Intel Turbo Boost -> `[Disable]`
-		- Inter Turbo Boost Max Technology 3.0 -> `[Disable]`
-		- Intel Speed Shift Thchnology -> `[Disable]`    
+		- Intel Turbo Boost Max Technology 3.0 -> `[Disable]`
+		- Intel Speed Shift Technology -> `[Disable]`    
 - Save and reboot
 <br><br>
 
@@ -49,11 +49,11 @@ Control Panel
 	- Power Options
         - Change settings for the plan: Balanced -> both change to `[Never]`
 		- System Settings
-            - `[Disable]` the 'Turn on fast startup(recommanded)', 'Sleep', 'Hibernate', 'Lock'
+            - `[Disable]` the 'Turn on fast startup(recommended)', 'Sleep', 'Hibernate', 'Lock'
 			- button behaviors: both change to `[Do nothing]`
 <br><br>
 
-## Prepare softwares
+## Prepare software
 Browser
 - Win10Rcap -> Download and install
 - VS 2019 Community -> Download -> Run as administrator -> Select 'Desktop development with C++' and '.NET desktop development' -> Install(need to wait for a long time)
@@ -65,39 +65,39 @@ Load Installation Disk
 ## Uninstall Windows Defender
 Control Panel
 - Programs -> Uninstall -> `Uninstall` any antivirus software
-- System and Security -> Windows Defender Firwwall-> Turn Windows Defender on or off -> Turn all to `[off]`
-    - `Disconnect Internet forever` after this step
+- System and Security -> Windows Defender Firewall-> Turn Windows Defender on or off -> Turn all to `[off]`
+    - `Disconnect the Internet forever` after this step
 <br><br>
 
 ## Set IP Address(Server version only)
-For Server License, you need to connect the client PC with server PC through a hub. Config the INtime license server PC and set the IP Addresses. Otherwise, you can skip this step.
+For the Server License, you need to connect the client PC with the server PC through a hub. Config the INtime license server PC and set the IP Addresses. Otherwise, you can skip this step.
 
 Control Panel -> Network and Internet -> Network and Sharing Center -> Change adapter
 - Ethernet(`right click`) -> Properties -> IPv4 -> Use the following IP address
     - IP: `'192.168.1.102'`(any available IP is ok under the same LAN)
     - Mask: `'255.255.255.0'`, Gateway: `keep empty`
 
-Reboot may be needed
+A reboot may be needed
 
 Check connection:
-- on client PC's terminal: ping 192.168.1.101(the server)
-- on server PC's terminal: pint 192.168.1.102(the client)
+- On the client PC's terminal: ping 192.168.1.101(the server)
+- On the server PC's terminal: pint 192.168.1.102(the client)
 
-Make sure the connection is correct between both machines. If the connection failed, please make sure all the PCs can be discovered in LAN. Search toturial about it.
+Make sure the connection is correct between both machines. If the connection fails, please make sure all the PCs can be discovered in LAN. Search tutorial about it.
 <br><br>
 
 ## Config INtime
-The controller code package -> Open 'Trajectory' sollution flie with VS -> 'Trajectory/Header Files/Global.h'
+The controller code package -> Open the 'Trajectory' solution file with VS -> 'Trajectory/Header Files/Global.h'
 - Find '#define CONTROL_NODE', '#define TRAJECTORY_NODE'
-    - Check the names of the Nodes, you need to create all nodes in INtime Configuration Management
+    - Check the names of the Nodes. You need to create all nodes in INtime Configuration Management
 
-Bottomright manu of Windows -> All INtime Kenels are stopped(`right click`)
+Bottom right manu of Windows -> All INtime Kenels are stopped(`right click`)
 - `Start NodeA` -> Icon turn red(wait) means the connection is correct -> `Stop NodeA`
 - INtime Configuration
     - Node Management(`double click`)
         - New Node -> Node name: 'NodeB', Node type: local
         - Repeat for nodes 'TrajectoryNodeA', TrajectoryNodeB', ...
-        - NodeA -> Kenel memory -> Enable 'Advanced Memory Configuation'
+        - NodeA -> Kernel memory -> Enable 'Advanced Memory Configuration
             - Edit area -> `128`(`[Legacy]`)
             - Add area -> `4095`(`[Force high]`)
             - Repeat: Add area -> `4095`(`[Force high]`)
@@ -128,80 +128,81 @@ If failure occurs, check the Readme.txt(Use DeepL to translate)
 <br><br>
 
 ## Config the teaching panel(The second robot of the dual-arm system configuration start from here)
-- Connect the teaching panel -> Turn on the controllor -> Don't need 'Easy settings'
-  - If you encounter Error when power-on, please follow the steps in 'Error at RC8A robot Controller Power-on' paper sheet inside the manipulator delivery package.
+- Connect the teaching panel -> Turn on the controller -> Don't need 'Easy settings'
+  - If you encounter an Error when power-on, please follow the steps in the 'Error at RC8A robot Controller Power-on' paper sheet inside the manipulator delivery package.
 - Setting(F6)
 	- Login（F1) -> Maintainer -> Password: `5596060`
 	- System info(F2) -> VRC Steeing(F6)
     	- If any of the following Slave motions does not exist, you need to change settings from WinCap III
         	- Check the IP address of the penal: Setting(F6) -> Communication and ...(F5) -> Network and commu(F2) -> Remember the IP address for next step(192.168.0.1 for example)
-        	- Find the license key and load WinCap III disk(Please make sure the language of this software is tha same as the language in the teaching panel. When you change language of the panel, keep the controllor turning on until the display of panel shows black-white-noise with loud fan noise, then you can reboot the controllor. The panel will automatically restart three times. ).
+        	- Find the license key and load the WinCap III disk(Please make sure the language of this software is the same as the language in the teaching panel. When you change the language of the panel, keep the controller turning on until the display of the panel shows black-white-noise with loud fan noise, then you can reboot the controller. The panel will automatically restart three times. ).
         	- DVD(`double click`) -> install -> Input the license key
         	- Connect PC and controllor using the individual single LAN port(below the emergency stop port, bottomleft position)
-        	- Change the IP address of the PC to the same local address with controllor(192.168.0.2), ping 192.168.0.1
+        	- Change the IP address of the PC to the same local address with controller(192.168.0.2), ping 192.168.0.1
         	- Start WinCap III -> `[0-operator]` -> login -> file -> new project -> select the second one(create a new project with information from the controllor), next -> project name: any, path: any, next -> input the IP address of the controllor, finish -> file -> save -> flie -> close
-        	- open the saved_project_folder/project_name_folder/Source File/
+        	- open the saved_project_folder/project_name_folder/Source Files/
             	- Copy 'ChangeAccessLevel.pcs' to the folder(TODO: 这一步把文件提前放公共U盘）
-          	- WinCap III -> file -> open project -> open the saved project file -> communication -> data something(the first one, Ctrl+T) -> leftside, program, click the 'ChangeAccessLevel.pcs', send(the teaching panel should under init interface, the main page, all blue interface)
+          	- WinCap III -> file -> open project -> open the saved project file -> communication -> data something(the first one, Ctrl+T) -> left side, program, click the 'ChangeAccessLevel.pcs', send(the teaching panel should be under init interface, the main page, all blue interface)
           	- Check No.370, 373, 378, 385 are all visible in the settings(If any of them are invisible)
-            	- Try to excute the manipulator with the teaching panel
+            	- Try to execute the manipulator with the teaching panel
             	- Init page(All blue)
+          	  	- Check F6 -> F5 -> F5 -> 370(Slave motion setting)/371(Slave motion sync option). If the values are 1, switch them to 0, and restart the RC8
                 	- F1 -> Check the 'ChangeAccessLevel.pcs' is loaded
                 	- F6 -> F5 -> F1 -> touch TP(Keep the key mode in `[MAN]`) -> OK, OK -> rotate the key to `[AUTO]`
                 	- F1 -> F4 -> select the first choice, OK(the numbers will change)
                 	- F6 -> F5 -> F1 -> rotate the key to `[MAN]` -> touch I/O, OK, OK
                 	- F6 -> Login（F1) -> Maintainer -> Password: `5596060`
               	- Check No.370, 373, 378, 385 are all available in the settings
-          	- Change the IP of PC back to automatically(dynamic IP)
+          	- Change the IP of the PC back to automatically(dynamic IP)
 		- No.370: Slave motion setting: `[Enable]`
 		- No.373: Communication cycle of Slave Motion: `[250us]`
 		- No.378: Slave Motion control mode: `[Velocity control]`
 		- No.385: Slave Motion control mode 2: `[pulse]`
-- Arm(F2)
+- Arm(F2) (Login with Maintainer first)
   	- SHIFT -> Maintenance(F6) -> CALSET(F7) -> Input number -> Copy numbers in CALSET collum to the 'Global.h' `CALSET_1[AXIS_NUM]` -> save the file and rebuild the program(Compile_ALL)
-- Turn off the controllor -> Disconnect the teaching panel and connect the plug
+- Turn off the controller -> Disconnect the teaching panel and connect the plug
 <br><br>
 
-## Config the EhterCat connection
+## Config the EtherCat connection
 Connect PC and Controller with LAN cable. For the controller, use the upper-left LAN port(EtherCat in), and then turn on the controller.
 
-Connect the EtherCat Studio license key to PC(For the second robot, you can skip)
+Connect the EtherCat Studio license key to the PC(For the second robot, you can skip)
 - `Double click` the installed Studio -> Browse -> Select the USB Key file
 <br><br>
 
 ## Start EtherCat Studio
 Slaves Library(`Right click`)
-- Open slaves library folder -> (TODO: 这一步把文件提前放公共U盘）Copy 'RC8 ECS MOTION V1.2.XML' from the already configed PC to this folder
+- Open slaves library folder -> (TODO: 这一步把文件提前放公共U盘）Copy 'RC8 ECS MOTION V1.2.XML' from the already configured PC to this folder
 - Reload -> The DENSO WAVE INCORPORATED
-Start Controllor
-- File -> New Project -> Network card -> Select the port collect to the robot controllor(check in the network setting) -> Proces Image -> Create PI by tree view -> Attach Master(row manu icon) -> You can find Slave 1(RC8...) if nothing wrong -> OK
-- State -> Click Init/Pre-Operational/Safe-Opeational/Operational one by one and check the Current/Requested states are same -> Detach Master(row manu icon) -> Export Master Configuation KPA(row manu icon) -> Save as 'RtEcHdr.xml' on desktop -> Move the file to 'C:Program Files(x86)/Micronet/RSIECAT/bin/NodeA/'(You need to create 'NodeB/' manually and copy 'ecatmkpa' from 'NodeA/' to 'NodeB/')
+Start Controller
+- File -> New Project -> Network card -> Select the port collect to the robot controllor(check in the network setting) -> Proces Image -> Create PI by tree view -> Attach Master(row manu icon) -> You can find Slave 1(RC8...) if nothing wrong -> Auto Merge
+- State(Icon) -> Click Init/Pre-Operational/Safe-Operational/Operational one by one and check the Current/Requested states are the same -> Detach Master(row menu icon) -> Export Master Configuration KPA(row menu icon) -> Save as 'RtEcHdr.xml' on desktop -> Move the file to 'C:Program Files(x86)/Micronet/RSIECAT/bin/NodeA/'(You need to create 'NodeB/' manually and copy 'ecatmkpa' from 'NodeA/' to 'NodeB/')
 - Close EtherCat Studio
 <br><br>
 
 ## Start INpass(Bridge between Windows and INtime ports)
-- Next -> Next -> Choose the port which connected to the robot(check in the network setting) -> Next -> 'Pass to INtime with MSI', select the current node -> Next -> EtherCAT ->Next ->Next-> OK(Reboot automatically)
+- Next -> Next -> Choose the port connected to the robot(check in the network setting) -> Next -> 'Pass to INtime with MSI', select the current node -> Next -> EtherCAT ->Next ->Next-> OK(Reboot automatically
 - INtime configuration -> Node Management -> NodeA -> Auto Load -> Add ->Title:'RSI-ECAT-Master', Path:'C:Program Files(x86)/Micronet/RSIECAT/bin/RtEcHdr.xml'(Not the same one with the one we save), Click all the optional boxes -> OK -> Save -> Close the Node Management
--  (TODO: 这一步把文件提前放公共U盘）Copy 'EtherCAT_API-Library' folder from the already configed PC to 'C://'
+-  (TODO: 这一步把文件提前放公共U盘）Copy the 'EtherCAT_API-Library' folder from the already configured PC to 'C://'
 <br><br>
 
 ## Test
-Start the program .NET -> Test the robot motion. -> `Check the init position of robot using the simulation first!`
+Start the program .NET -> Test the robot motion. -> `Check the init position of the robot using the simulation first!`
 
-If every thing is okay, congratulations!
+If everything is okay, congratulations!
 
 <br><br>
 
 # Config the INtime license server
 Check the Windows version corresponding to the version of INtime.
 
-Change the Setting of this PC and make sure it will not sleep to keep the connection between Server PC and Client PCs
+Change the Setting of this PC and make sure it will not sleep to keep the connection between the Server PC and the Client PCs
 
 ## Install INtime
 Load Installation Disk
 - `Double click` the DVD -> Start without ... -> Start without ... -> Confirm
 - `Right click` the DVD -> Open
-    - NetUtil -> Server -> setup(doubleclick) -> keep default option and install
+    - NetUtil -> Server -> setup(`double click`) -> keep default option and install
 	- copy files 'WlmAdmin, Isapiw32.dll, Isusage' to 'C:/Users/INtimeServer(PC_NAME)'
 
 Load License Files Disk and USB Key
