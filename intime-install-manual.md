@@ -22,44 +22,47 @@ This document is a manual for installing and configuring the INtime OS with Dens
 
 <br><br>
 
-# Config Wins 10 on client PC
+# Config Wins 10/11 on client PC
 ## Enter BIOS and disable the following options:
+- Make sure the display cable is connecting to the GPU port. Please do not use wireless keyboard for entering the BIOS.
 Settings  
 - Security
-	- Secure Boot -> `[Disabled]`				   
-	- Boot -> Fast Boot -> `[Disable] `
+	- Secure Boot `[Disable]` / minimal security [DELL]				   
+	- Boot -> Fast Boot `[Disable]` / Slowest boot time [DELL]
 - Features 
 	- Advanced CPU Configuration
 		- Hyper-Threading -> `[Disable]`
 		- Intel C-State -> `[Disable]`
 		- Intel Turbo Boost -> `[Disable]`
-		- Intel Turbo Boost Max Technology 3.0 -> `[Disable]`
+		- Intel Turbo Boost Max Technology 3.0 -> `[Disable]` (Can not be found in DELL)
 		- Intel Speed Shift Technology -> `[Disable]`    
 - Save and reboot
 <br><br>
 
 ## Set PC's power option
 Control Panel
-- Programs -> Turn Windows features on or off -> .NET Framework `4.8 and 3.5` Advanced Services -> `[Enable all]`
+- Programs -> Turn Windows features on or off -> .NET Framework `4.8 and 3.5` Advanced Services -> `[Enable all]`(Please make sure all the suboptions are enabled. The icon should be a tick instead of square.) -> Reboot after downloading and installation.
 - System and Security
-    - Administrative Tools -> Services -> Windows update(`double click`) -> `[Disable]` 
+    - Administrative Tools -> Services(You can search it in start manu.) -> Windows update(`double click`) -> Startup type: `[Disable]` 
+	- Administrative Tools -> Services(You can search it in start manu.) -> Windows update`[Right-click]` and stop.
 	- Windows update(`right click`) -> Properties -> Recovery
         - Reset fail count after: `9999`
-		- First/Secoun/Subsequent failure(s): `[Take No Action]`
+		- First/Second/Subsequent failure(s): `[Take No Action]` -> `[Right-click]` and stop.
 	- Power Options
         - Change settings for the plan: Balanced -> both change to `[Never]`
-		- System Settings
-            - `[Disable]` the 'Turn on fast startup(recommended)', 'Sleep', 'Hibernate', 'Lock'
+		- Choose what the power buttom do
 			- button behaviors: both change to `[Do nothing]`
+		- Change setting that are currently unavailable
+            - `[Disable]` the 'Turn on fast startup(recommended)', 'Sleep', 'Hibernate', 'Lock'
 <br><br>
 
 ## Prepare software
 Browser
-- Win10Rcap -> Download and install
+- Win10pcap -> Download and install
 - VS 2019 Community -> Download -> Run as administrator -> Select 'Desktop development with C++' and '.NET desktop development' -> Install(need to wait for a long time)
 
-Load Installation Disk
-- `Right click` the DVD -> Open -> intime64full-net_installer -> open(need to wait for a long time)
+Load INtime Installation Disk
+- `Right click` the DVD -> Open -> intime64full-net_installer -> open(need to wait for a long time for loading) -> Install all -> It will take a long long time. Just wait until it finish.
 <br><br>
 
 ## Uninstall Windows Defender
@@ -72,18 +75,18 @@ Control Panel
 ## Set IP Address(Server version only)
 For the Server License, you need to connect the client PC with the server PC through a hub. Config the INtime license server PC and set the IP Addresses. Otherwise, you can skip this step.
 
-Control Panel -> Network and Internet -> Network and Sharing Center -> Change adapter
+Control Panel -> Network and Internet -> Network and Sharing Center -> Change adapter setting
 - Ethernet(`right click`) -> Properties -> IPv4 -> Use the following IP address
     - IP: `'192.168.1.102'`(any available IP is ok under the same LAN)
     - Mask: `'255.255.255.0'`, Gateway: `keep empty`
 
 A reboot may be needed
 
+Make sure the connection is correct between both machines. If the connection fails, please make sure all the PCs can be discovered in LAN. Search tutorial about it.
+
 Check connection:
 - On the client PC's terminal: ping 192.168.1.101(the server)
 - On the server PC's terminal: pint 192.168.1.102(the client)
-
-Make sure the connection is correct between both machines. If the connection fails, please make sure all the PCs can be discovered in LAN. Search tutorial about it.
 <br><br>
 
 ## Config INtime
@@ -97,8 +100,8 @@ Bottom right manu of Windows -> All INtime Kenels are stopped(`right click`)
     - Node Management(`double click`)
         - New Node -> Node name: 'NodeB', Node type: local
         - Repeat for nodes 'TrajectoryNodeA', TrajectoryNodeB', ...
-        - NodeA -> Kernel memory -> Enable 'Advanced Memory Configuration
-            - Edit area -> `128`(`[Legacy]`)
+        - NodeA -> Kernel -> Kernel memory(in MB) -> (Right hand side [...] icon) Enable 'Advanced Memory Configuration
+            - Select one row -> Edit area -> `128`(`[Legacy]`)
             - Add area -> `4095`(`[Force high]`)
             - Repeat: Add area -> `4095`(`[Force high]`)
         - NodeB -> Same as NodeA
@@ -181,8 +184,8 @@ Start Controller
 <br><br>
 
 ## Start INpass(Bridge between Windows and INtime ports)
-- Next -> Next -> Choose the port connected to the robot(check in the network setting) -> Next -> 'Pass to INtime with MSI', select the current node -> Next -> EtherCAT ->Next ->Next-> OK(Reboot automatically
-- INtime configuration -> Node Management -> NodeA -> Auto Load -> Add ->Title:'RSI-ECAT-Master', Path:'C:Program Files(x86)/Micronet/RSIECAT/bin/RtEcHdr.xml'(Not the same one with the one we save), Click all the optional boxes -> OK -> Save -> Close the Node Management
+- Next -> Next(If there are several versions, select the latest version of INtime) -> Choose the port connected to the robot(check in the network setting) -> Next -> 'Pass to INtime with MSI', select the current node -> Next -> EtherCAT ->Next ->Next-> OK(Reboot automatically
+- INtime configuration -> Node Management -> NodeA -> Auto Load -> Add ->Title:'RSI-ECAT-Master', Path:'C:Program Files(x86)/Micronet/RSIECAT/bin/RtEcHdr.rta'(Not the same one with the one we save), Click all the optional boxes -> OK -> Save -> Close the Node Management
 -  (TODO: 这一步把文件提前放公共U盘）Copy the 'EtherCAT_API-Library' folder from the already configured PC to 'C://'
 <br><br>
 
@@ -199,18 +202,19 @@ Check the Windows version corresponding to the version of INtime.
 Change the Setting of this PC and make sure it will not sleep to keep the connection between the Server PC and the Client PCs
 
 ## Install INtime
-Load Installation Disk
+
+Load Installation Disk and insert the USB license key.
 - `Double click` the DVD -> Start without ... -> Start without ... -> Confirm
 - `Right click` the DVD -> Open
     - NetUtil -> Server -> setup(`double click`) -> keep default option and install
-	- copy files 'WlmAdmin, Isapiw32.dll, Isusage' to 'C:/Users/INtimeServer(PC_NAME)'
+	- copy files NetUtil/'WlmAdmin, Isapiw32.dll, Isusage' to 'C:/Users/{PC_NAME}'
 
-Load License Files Disk and USB Key
+Load License Files Disk and USB Key(INtime)
 - Open WlmAdmin -> Subnet Servers -> DESKTOP...(`right click`) -> Add Feature from file -> To server and its files -> select 'D:/.lic' file from the disk
 <br><br>
 
 ## Set IP Address
 Control Panel -> Network and Internet -> Network and Sharing Center -> Change adapter
-- Ethernet(`right click`) -> Properties -> IPv4 -> Use the following IP address
+- Ethernet(`right click`) -> Properties -> IPv4`[double-clik]` -> Use the following IP address
     - IP: `'192.168.1.101'`
     - Mask: `'255.255.255.0'`, Gateway: `keep empty`
