@@ -162,7 +162,7 @@ If failure occurs, check the Readme.txt(Use DeepL to translate)
 		- No.378: Slave Motion control mode: `[Velocity control]`
 		- No.385: Slave Motion control mode 2: `[pulse]`
 - Arm(F2) (Login with Maintainer first)
-  	- SHIFT -> Maintenance(F6) -> CALSET(F7) -> Input number -> Copy numbers in CALSET collum to the 'Global.h' `CALSET_1[AXIS_NUM]` -> save the file and rebuild the program(Compile_ALL)
+  	- SHIFT -> Maintenance(F6) -> CALSET(F7) -> Input number (F3)-> Copy numbers in CALSET collum to the 'Global.h' `CALSET_1[AXIS_NUM]` -> save the file and rebuild the program(Compile_ALL)
 - Turn off the controller -> Disconnect the teaching panel and connect the plug
 <br><br>
 
