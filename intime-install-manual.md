@@ -189,6 +189,11 @@ Start Controller
 -  (TODO: 这一步把文件提前放公共U盘）Copy the 'EtherCAT_API-Library' folder from the already configured PC to 'C://'
 <br><br>
 
+##Language setup
+If the windows default language is not jp, need to set add jp to non-unicode programs.
+For win10:
+Setting -> Language -> Administrative language settings -> Administrative -> change system locale -> jp
+
 ## Test
 Start the program .NET -> Test the robot motion. -> `Check the init position of the robot using the simulation first!`
 
